@@ -20,58 +20,42 @@ public class HyperoperationCalculator {
             int operationRank = askForRank();
             BigInteger result = operate(baseOperand, operationRank, repeatsOperand);
             System.out.print(baseOperand + "[" + operationRank + "]" + repeatsOperand.toString() + " = ");
-            nicePrint(result);
+            //nicePrint(result);
+            System.out.println(result.toString());
             System.out.print("[OK] to continue or any other key to exit\n>");
             response = input.next().toUpperCase();
         } while (response.equals("OK"));
     }
 
     private static void nicePrint(BigInteger result) {
-        for (int i = 0; i < result.toString().length(); i++) {
-            if (i != 0 && i % 1_000_000 == 0) {
+        char[] str = result.toString().toCharArray();
+        int i = 0;
+        for (char c : str) {
+            if (i == 1_000_000) {
                 System.out.println();
+                i = 0;
             }
-            System.out.print(result.toString().charAt(i));
+            System.out.print(c);
+            i++;
         }
         System.out.println();
     }
 
     private static BigInteger operate(int baseOperand, int operationRank, BigInteger repeatsOperand) {
-        OperationStack opStack = new OperationStack();
-        if(operationRank == 0){
-            return new BigInteger((baseOperand + 1) + "");
-        }
-        for (int i = 1; i <= operationRank; i++) {
-            Operation op = new Operation(baseOperand, i, repeatsOperand);
-            opStack.push(op);
-        }
-        return conductOperation(opStack.pop());
-/*        if (operationRank == 0) {
+        BigInteger toReturn = new BigInteger(baseOperand + "");
+        if (operationRank == 0) {
             return toReturn.add(BigInteger.ONE);
         } else if (operationRank == 1) {
-            return toReturn.add(toRepeat);
+            return toReturn.add(repeatsOperand);
         } else if (operationRank == 2) {
-            return toReturn.multiply(toRepeat);
+            return toReturn.multiply(repeatsOperand);
         } else if (operationRank == 3 && repeatsOperand.compareTo(INT_MAX) < 0) {
             return toReturn.pow(Integer.parseInt(repeatsOperand.toString()));
         }
-        if (repeatsOperand.equals(new BigInteger("1"))) {
+        if (repeatsOperand.equals(BigInteger.ONE)) {
             return toReturn;
         }
         return operate(baseOperand, operationRank - 1, operate(baseOperand, operationRank, repeatsOperand.subtract(BigInteger.ONE)));
-*/
-    }
-
-    private static BigInteger conductOperation(Operation poppedOp) {
-        if(poppedOp.getOperatorRank() == 1){
-            return new BigInteger((poppedOp.getOperandOne()) + "").add(poppedOp.getOperandTwo());
-        }
-        BigInteger currOp2 = new BigInteger(poppedOp.getOperandOne() + "");
-        for(BigInteger i = BigInteger.ONE; i.compareTo(poppedOp.getOperandTwo()) < 0; i = i.add(BigInteger.ONE)){
-            Operation subOp = new Operation(poppedOp.getOperandOne(), poppedOp.getOperatorRank()-1, currOp2);
-            currOp2 = conductOperation(subOp);
-        }
-        return currOp2;
     }
 
     private static int askForRank() {

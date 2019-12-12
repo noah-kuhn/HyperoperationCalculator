@@ -22,12 +22,51 @@ public class OperationStack implements Deque {
     }
 
     public void addFirst(Object o) {
-        if(o != null && o instanceof Operation){
+        if(o instanceof Operation){
             Operation toAdd = (Operation) o;
             container.addFirst(toAdd);
         }
     }
 
+    public Operation removeFirst() {
+        Operation temp = container.getFirst();
+        container.removeFirst();
+        return temp;
+    }
+
+    public Operation getFirst() {
+        return container.getFirst();
+    }
+
+    public Operation peek() {
+        return getFirst();
+    }
+
+    public void push(Object o) {
+        addFirst(o);
+    }
+
+    public Operation pop() {
+        return removeFirst();
+    }
+
+    public void clear() {
+        container.clear();
+    }
+
+    public int size() {
+        return container.size();
+    }
+
+    public boolean isEmpty() {
+        return container.isEmpty();
+    }
+
+    public Iterator<Operation> iterator() {
+        return container.iterator();
+    }
+
+    //unsupported operations
     public void addLast(Object o) {
         throw new UnsupportedOperationException("addLast is an unsupported operation for OperationStack");
     }
@@ -40,12 +79,6 @@ public class OperationStack implements Deque {
         throw new UnsupportedOperationException("offerLast is an unsupported operation for OperationStack");
     }
 
-    public Operation removeFirst() {
-        Operation temp = container.getFirst();
-        container.removeFirst();
-        return temp;
-    }
-
     public Object removeLast() {
         throw new UnsupportedOperationException("removeLast is an unsupported operation for OperationStack");
     }
@@ -56,10 +89,6 @@ public class OperationStack implements Deque {
 
     public Object pollLast() {
         throw new UnsupportedOperationException("pollLast is an unsupported operation for OperationStack");
-    }
-
-    public Operation getFirst() {
-        return container.getFirst();
     }
 
     public Object getLast() {
@@ -102,28 +131,12 @@ public class OperationStack implements Deque {
         throw new UnsupportedOperationException("element is an unsupported operation for OperationStack");
     }
 
-    public Operation peek() {
-        return getFirst();
-    }
-
-    public void push(Object o) {
-        addFirst(o);
-    }
-
-    public Operation pop() {
-        return removeFirst();
-    }
-
     public boolean remove(Object o) {
         throw new UnsupportedOperationException("remove is an unsupported operation for OperationStack");
     }
 
     public boolean addAll(Collection c) {
         throw new UnsupportedOperationException("addAll is an unsupported operation for OperationStack");
-    }
-
-    public void clear() {
-        container.clear();
     }
 
     public boolean retainAll(Collection c) {
@@ -140,18 +153,6 @@ public class OperationStack implements Deque {
 
     public boolean contains(Object o) {
         throw new UnsupportedOperationException("contains is an unsupported operation for OperationStack");
-    }
-
-    public int size() {
-        return container.size();
-    }
-
-    public boolean isEmpty() {
-        return container.isEmpty();
-    }
-
-    public Iterator<Operation> iterator() {
-        return container.iterator();
     }
 
     public Object[] toArray() {
