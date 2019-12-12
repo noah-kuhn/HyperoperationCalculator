@@ -18,7 +18,9 @@ public class HyperoperationCalculator {
             int baseOperand = askForBase();
             BigInteger repeatsOperand = askForRepeats();
             int operationRank = askForRank();
-            BigInteger result = operate(baseOperand, operationRank, repeatsOperand);
+            Operation theOp = new Operation(new BigInteger(baseOperand + ""), operationRank, repeatsOperand);
+            BigInteger result = theOp.operate();
+            //BigInteger result = operate(baseOperand, operationRank, repeatsOperand);
             System.out.print(baseOperand + "[" + operationRank + "]" + repeatsOperand.toString() + " = ");
             //nicePrint(result);
             System.out.println(result.toString());
