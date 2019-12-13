@@ -1,29 +1,28 @@
 //NOAH KUHN
 //HYPEROPERATION CALCULATOR
-//NOV 5 2019
+//DEC 13 2019
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Scanner;
 
 public class HyperoperationCalculator {
-    public static Scanner input;
-    public static final BigInteger INT_MAX = new BigInteger(Integer.MAX_VALUE + "");
-
+    private static Scanner input;
+    private static final BigInteger INT_MAX = new BigInteger(Integer.MAX_VALUE + "");
     public static void main(String[] args) throws IOException {
         System.out.println("NOAH'S HYPEROPERATION CALCULATOR");
         input = new Scanner(System.in);
-        String response = "";
+        String response;
         do {
             int baseOperand = askForBase();
             BigInteger repeatsOperand = askForRepeats();
             int operationRank = askForRank();
-            Operation theOp = new Operation(new BigInteger(baseOperand + ""), operationRank, repeatsOperand);
-            BigInteger result = theOp.operate();
+            Operation op = new Operation(new BigInteger(baseOperand + ""), operationRank, repeatsOperand);
+            BigInteger result = op.operate();
             //BigInteger result = operate(baseOperand, operationRank, repeatsOperand);
             System.out.print(baseOperand + "[" + operationRank + "]" + repeatsOperand.toString() + " = ");
-            //nicePrint(result);
-            System.out.println(result.toString());
+            nicePrint(result);
+            //System.out.println(result.toString());
             System.out.print("[OK] to continue or any other key to exit\n>");
             response = input.next().toUpperCase();
         } while (response.equals("OK"));
@@ -33,7 +32,7 @@ public class HyperoperationCalculator {
         char[] str = result.toString().toCharArray();
         int i = 0;
         for (char c : str) {
-            if (i == 1_000_000) {
+            if (i == 10_000) {
                 System.out.println();
                 i = 0;
             }
@@ -110,5 +109,4 @@ public class HyperoperationCalculator {
         } while (!intelligible);
         return Integer.parseInt(response);
     }
-
 }
